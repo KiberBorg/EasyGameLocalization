@@ -1,10 +1,3 @@
-/**
- *
- * OnInstall method.
- *
- * Necessary for the menu items to populate the first time after the add-on is installed.
- *
- **/
 function onInstall(e) {
   onOpen(e);
 }
@@ -19,7 +12,7 @@ function onInstall(e) {
 function onOpen() {
     SpreadsheetApp.getUi()
         .createAddonMenu()
-        .addItem('Start a new translation', 'showSidebar')
+        .addItem('Start translating', 'showSidebar')
         .addItem('About', 'showAbout')
         .addToUi();
 }
@@ -32,7 +25,7 @@ function onOpen() {
 function showSidebar() {
     var html = HtmlService.createHtmlOutputFromFile('index')
         .setSandboxMode(HtmlService.SandboxMode.IFRAME)
-        .setTitle('Translate My Sheet')
+        .setTitle('Easy Game Localization')
         .setWidth(300);
 
     // Open sidebar
@@ -44,65 +37,43 @@ function showAbout() {
       .setSandboxMode(HtmlService.SandboxMode.IFRAME)
       .setTitle('About')
       .setWidth(250)
-      .setHeight(450);
+      .setHeight(500);
   SpreadsheetApp.getActive().show(html);
 }
 
-/**
- *
- * Sidebar title, content & size.
- *
- **/
-function translate(radioFull, radioSelected, sourceLangage, targetLangage) {
-    SpreadsheetApp.getActiveSpreadsheet().toast("Translation in progress...", "", -1);
+function startTranslation(overwrite) {
+  SpreadsheetApp.getActiveSpreadsheet().toast("Translation in progress...", "", -1);
     try {
-        var activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-        var activeSheet = activeSpreadsheet.getActiveSheet();
-        var activeCell = activeSheet.getActiveCell();
-        if (radioFull) {
-            translateFullPage(activeSpreadsheet, sourceLangage, targetLangage);
-        } else if (radioSelected) {
-            translateSelectedCells(activeSpreadsheet, sourceLangage, targetLangage);
-        }
-        SpreadsheetApp.getActiveSpreadsheet().toast("Done.", "", 3);
+      var activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+      translate(activeSpreadsheet, overwrite);
     } catch (err) {
       SpreadsheetApp.getActiveSpreadsheet().toast("An error occured:" + err);
     }
 }
-
-/**
- *
- * Code for translate full page content from a source to a target langage. 
- *
- **/
-function translateFullPage(activeSpreadsheet, sourceLangage, targetLangage) {
-    var lrow = activeSpreadsheet.getLastRow();
-    var lcol = activeSpreadsheet.getLastColumn();
-    for (var i = 1; i <= lrow; i++) {
-        for (var j = 1; j <= lcol; j++) {
-            if (SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(i, j).getValue() != "") {
-                var activeCellText = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(i, j).getValue();
-                var activeCellTranslation = LanguageApp.translate(activeCellText, sourceLangage, targetLangage);
-                SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(i, j).setValue(activeCellTranslation);
-            }
-        }
+function translate(activeSpreadsheet, overwrite)
+{
+  var lrow = activeSpreadsheet.getLastRow();
+  var lcol = activeSpreadsheet.getLastColumn();
+  var sourcelanguage = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(1, 2).getValue();
+  var sourcelanguagewords = [];
+  for (var i = 2; i <= lrow; i++) 
+  {
+    if (SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(i, 2).getValue().length > 1) {
+      var activeCellText = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(i, 2).getValue();
+      sourcelanguagewords.push(activeCellText);
     }
-}
-
-/**
- *
- * Code for translate only selected range content in a sheet from a source to a target langage. 
- *
- **/
-function translateSelectedCells(activeSpreadsheet, sourceLangage, targetLangage) {
-    var range = SpreadsheetApp.getActiveSheet().getActiveRange();
-    var numRows = range.getNumRows();
-    var numCols = range.getNumColumns();
-    for (var i = 1; i <= numRows; i++) {
-      for (var j = 1; j <= numCols; j++) {
-        var activeCellText = range.getCell(i,j).getValue();
-        var activeCellTranslation = LanguageApp.translate(activeCellText, sourceLangage, targetLangage);
-        range.getCell(i,j).setValue(activeCellTranslation);
+  }
+  for (var j = 3; j <= lcol; j++) {
+    var targetlanguage = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(1, j).getValue();
+    for (var i = 2; i <= lrow; i++) {
+      if(SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(i, j).getValue() == "" || overwrite)
+      {
+        var sourceword = sourcelanguagewords[i-2];
+        var activeCellTranslation = LanguageApp.translate(sourceword, sourcelanguage, targetlanguage);
+        SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(i, j).setValue(activeCellTranslation);
+        activeSpreadsheet.toast("Translated to " + targetlanguage, "", 2);
       }
     }
+  }
+  activeSpreadsheet.toast("Done translating.", "Sucess", 4);
 }
