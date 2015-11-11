@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://ssl.gstatic.com/docs/script/css/add-ons.css" rel=
+    "stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<style>
+h1 { font-family: 'Open Sans', sans-serif; font-weight: 350; text-align: center; color: black; font-size: 300%;}
+h2 { font-family: 'Open Sans', sans-serif; font-weight: 180; text-align: center; color: black; font-size: 120%;}
+</style>
+    <title></title>
+</head>
+
+<body>
+    <div style="text-align: center;">
+       <h1>How to use</h1><br>
+
+        <p style="text-align: justify">Easy Localization allows you to bulk-translate your sheet with a simple principle: Each <b>column</b> is for one<b> language</b>.
+        If you want to add a translation into a certain language just put the  <a href=
+        "https://developers.google.com/recaptcha/docs/language?hl=en" target=
+        "_blank">Language Code</a> in the <b>first row</b> of the next column.
+        </p>
+        <p> There are <b>two special columns</b> however:</p>
+        <div  style="text-align: left;">
+        <ol>
+        <li><b>Column B</b> has your main language, that will be used to translate into all the other languages. Like with the other columns you put the <b>language code in the first row</b> and then <b>row for row</b> all the words
+        you want to be translated.</li>
+        <li><b>Column A</b> is ignored by the add-on. You don't have to put anything here but you can use it for identifiers in order to reference your translations later.</li>
+        </ol>
+        </div>
+        <br>
+        <button class="create" onclick="return google.script.run.createExample();">Add Localization Sheet</button>
+        <br>
+        
+    </div>
+</body>
+</html>

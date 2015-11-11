@@ -4,105 +4,35 @@
 <style>
 h1 { font-family: 'Open Sans', sans-serif; font-weight: 350; text-align: center; color: white; font-size: 300%;}
 h2 { font-family: 'Open Sans', sans-serif; font-weight: 180; text-align: center; color: white; font-size: 120%;}
+p { font-family: 'Open Sans', sans-serif; font-weight: 130; text-align: justified; color: white; font-size: 100%;}
 </style>
 <body bgcolor="#EF4836">
 <center>
     <font color="white"> <!-- Header -->
-    <h1>Easy Game</h1>
+    <h1>Easy</h1>
     <h1>Localization</h1><br><br>
      <!-- Body -->
-     <br><br>
-          
-     <div id="CodeResult">
+      <div>
       <h2>
-     Language Codes
+     Set-Up
      </h2>
      </div>
-     <div class="inline form-group">
-          <select id="languageCode">
-               <option value="en">English - en</option>
-               <option value="fr">French - fr</option>
-               <option value="de">German - de</option>
-               <option value="it">Italian - it</option>
-               <option value="es">Spanish - es</option>
-               <option value="af">Afrikaans - af</option>
-               <option value="sq">Albanian - sq</option>
-               <option value="ar">Arabic - ar</option>
-               <option value="az">Azerbaijani - az</option>
-               <option value="eu">Basque - eu</option>
-               <option value="bn">Bengali - bn</option>
-               <option value="be">Belarusian - be</option>
-               <option value="bg">Bulgarian - bg</option>
-               <option value="ca">Catalan - ca</option>
-               <option value="zh-CN">Chinese(simple) - zh-CN</option>
-               <option value="zh-TW">Chinese(trad)- zh - TW</option>
-               <option value="hr">Croatian - hr</option>
-               <option value="cs">Czech - cs</option>
-               <option value="da">Danish - da</option>
-               <option value="nl">Dutch - nl</option>
-               <option value="eo">Esperanto - eo</option>
-               <option value="et">Estonian - et</option>
-               <option value="tl">Filipino - tl</option>
-               <option value="fi">Finnish - fi</option>
-               <option value="gl">Galician - gl</option>
-               <option value="ka">Georgian - ka</option>
-               <option value="el">Greek - el</option>
-               <option value="gu">Gujarati - gu</option>
-               <option value="ht">Haitian Creole - ht</option>
-               <option value="iw">Hebrew - iw</option>
-               <option value="hi">Hindi - hi</option>
-               <option value="hu">Hungarian - hu</option>
-               <option value="is">Icelandic - is</option>
-               <option value="id">Indonesian - id</option>
-               <option value="ga">Irish - ga</option>
-               <option value="ja">Japenese - ja</option>
-               <option value="kn">Kannada - kn</option>
-               <option value="km">Khmer - km</option>
-               <option value="ko">Korean - ko</option>
-               <option value="lo">Lao - lo</option>
-               <option value="la">Latin - la</option>
-               <option value="lv">Latvian - lv</option>
-               <option value="lt">Lithuanian - lt</option>
-               <option value="mk">Macedonian - mk</option>
-               <option value="ms">Malay - ms</option>
-               <option value="mt">Maltese - mt</option>
-               <option value="mi">Maori - mi</option>
-               <option value="mr">Marathi - mr</option>
-               <option value="mn">Mongolian - mn</option>
-               <option value="no">Norwegian - no</option>
-               <option value="fa">Persian - fa</option>
-               <option value="pl">Polish - pl</option>
-               <option value="pt">Portuguese - pt</option>
-               <option value="ro">Romanian - ro</option>
-               <option value="ru">Russian - ru</option>
-               <option value="sr">Serbian - sr</option>
-               <option value="sk">Slovak - sk</option>
-               <option value="sl">Slovenian - sl</option>
-               <option value="sw">Swahili - sw</option>
-               <option value="sv">Swedish - sv</option>
-               <option value="ta">Tamil - ta</option>
-               <option value="te">Telugu - te</option>
-               <option value="th">Thai - th</option>
-               <option value="tr">Turkish - tr</option>
-               <option value="uk">Ukrainian - uk</option>
-               <option value="ur">Urdu - ur</option>
-               <option value="vi">Vietnamese - vi</option>
-               <option value="cy">Welsh - cy</option>
-               <option value="yi">Yiddish - yi</option>
-               <option value="yo">Yoruba - yo</option>
-               <option value="zu">Zulu - zu</option>
-          </select>
-     </div>
+      <p>
+      Easy Localization allows you to to bulk-translate your sheet but in order for it to work the sheet has to be in a certain format. You can create a new pre-formatted sheet here:
+      <p>
       <br>
-      <br>
-     <div class="inline form-group" align="left">
-          <label unselectable="on"><input type="radio" id="radioOverwrite" name="translationType" value="full" /> Overwrite existing Translations<br></label>
-          <label unselectable="on"><input type="radio" id="radioEmpty" name="translationType" value="selected" checked /> Only translate into empty cells<br></label>
-     </div><br><br><br>
-     <button class="action" style="width:200px;height:40px" onclick="return google.script.run.startTranslation(radioOverwrite.checked);">Translate</button>    
+     <button style="width:200px;height:30px" onclick="return google.script.run.createExample();">Add Localization Sheet</button>  
+     <br>
+      <br><br>
+     <button class="action" style="width:200px;height:40px" onclick="return google.script.run.translate();">Translate</button>
+     
      <!-- Footer -->
      <div class="sidebar bottom" style="width:97%;">
-         <h2> Easy Game Localization </h2>
+           <button onclick="return google.script.run.showFormatting();">How to use</button>
+          <a class="button" href=
+        "https://developers.google.com/recaptcha/docs/language?hl=en" target=
+        "_blank">Language Codes</a>
+         <h2> Easy Localization </h2>
      </div>
 </font>
 </center>
